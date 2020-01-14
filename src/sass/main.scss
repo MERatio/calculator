@@ -1,0 +1,149 @@
+// font for numbers in screen
+@import url('https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap');
+
+:root {
+  --color-black: #333;
+  --color-white: #fff;
+  --color-grey: #f0f0f0;
+  --calculator-bg: #777;
+  --color-silver: #bdc3c7;
+  --color-dark-blue: #2c3e50;
+  --color-orange-light: #e67e22;
+  --color-orange: #fb7730;
+  --color-orange-dark: #f86515;
+  --color-blue: #30B4FB;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  box-sizing: border-box;
+  font-family: sans-serif;
+  background: #6190E8;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #A7BFE8, #6190E8);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #A7BFE8, #6190E8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+main {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#calculator {
+  width: 40rem;
+  height: 50rem;
+  display: grid;
+  grid-template-rows: minmax(min-content, 20%) minmax(min-content, 80%);
+  row-gap: 1rem;
+  padding: 1rem;
+  background-color: var(--calculator-bg);
+  border-radius: 3px;
+
+  #display {
+    background-color: var(--color-grey);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 3rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  #buttons-container {
+    background-color: var(--color-silver);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 1px;
+
+    button {
+      font-size: 2rem;
+      color: var(--color-black);
+      background-color: var(--color-white);
+      border: none;
+      cursor: pointer;
+      transition: .1s;
+
+      // remove border on focused button on Firefox
+      &::-moz-focus-inner {
+        border: 0;
+      }
+
+      &:hover {
+        background-color: var(--color-grey);
+      }
+
+      &:focus {
+        border: 1px solid var(--color-blue);
+      } 
+      
+      &:active {
+        transform: scale(.95);
+      }
+    }
+
+    #clear,
+    #delete,
+    #divide,
+    #multiply,
+    #subtract,
+    #add {
+      color: var(--color-orange);
+
+      &:hover {
+        color: var(--color-orange-dark);
+      }
+    }   
+
+    #zero {
+      grid-column: 1 / 3;
+      grid-row: 5 / 6;
+    }
+
+    #equals {
+      grid-column: 4 / 5;
+      grid-row: 4 / 6;
+      color: var(--color-white);
+      background-color: var(--color-orange);
+      transition: all .1s;
+
+      &:hover {
+        background-color: var(--color-orange-dark);
+      }
+    }
+  }
+}
+
+// media queries
+// 767 max width
+@media only screen and (max-width: 47.9375em) {
+  html {
+    font-size: 50%;
+  }
+
+  #calculator {
+    width: 60%;
+    height: 100%;
+    border-radius: 0;
+  }
+}
+
+// 575 max width or 500px max height
+@media only screen and (max-width: 35.9375em), only screen and (max-height: 31.25em) {
+  #calculator {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+}
