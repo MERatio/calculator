@@ -36,19 +36,13 @@ const calculator = {
   },
   handleNumbersBtnClick(e) {
     const numberStr = e.currentTarget.dataset.number;
-    if (this.operator === null) {
-      if (this.operandA === '0') {
-        this.operandA = numberStr;
-      } else {
-        this.operandA += numberStr;
-      }
+    const targetOperand = this.operator === null ? 'operandA' : 'operandB';
+    if (this[targetOperand] === '0') {
+      this[targetOperand] = numberStr;
     } else {
-      if (this.operandB === '0') {
-        this.operandB = numberStr;
-      } else {
-        this.operandB += numberStr;
-      }
+      this[targetOperand] += numberStr;
     }
+
     dom.determineDisplayOutput();
   },
   handleOperatorClick(e) {
