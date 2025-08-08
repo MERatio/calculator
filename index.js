@@ -4,6 +4,7 @@ const dom = {
   numbersBtn: document.querySelectorAll('[data-number]'),
   operatorsBtn: document.querySelectorAll('[data-operator]'),
   equalsBtn: document.querySelector('#equalsBtn'),
+  allClearBtn: document.querySelector('#allClearBtn'),
   determineDisplayOutput() {
     const calculatorDisplay = document.querySelector('#calculatorDisplay');
     calculatorDisplay.textContent = calculator.operandA;
@@ -67,6 +68,12 @@ const calculator = {
       dom.determineDisplayOutput();
     }
   },
+  handleAllClearClick() {
+    this.operandA = '0';
+    this.operandB = '';
+    this.operator = null;
+    dom.determineDisplayOutput();
+  },
 };
 
 function addEventListeners() {
@@ -83,6 +90,9 @@ function addEventListeners() {
   }
 
   dom.equalsBtn.addEventListener('click', () => calculator.handleEqualsClick());
+  dom.allClearBtn.addEventListener('click', () =>
+    calculator.handleAllClearClick()
+  );
 }
 
 dom.determineDisplayOutput();
