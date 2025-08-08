@@ -54,6 +54,9 @@ const calculator = {
     } else {
       if (this.operandB === '') {
         return;
+      } else {
+        this.handleEqualsClick();
+        this.operator = operator;
       }
     }
     dom.determineDisplayOutput();
