@@ -1,17 +1,17 @@
 'use strict';
 
 const dom = {
+  calculatorDisplay: document.querySelector('#calculatorDisplay'),
   numbersBtn: document.querySelectorAll('[data-number]'),
   operatorsBtn: document.querySelectorAll('[data-operator]'),
   equalsBtn: document.querySelector('#equalsBtn'),
   allClearBtn: document.querySelector('#allClearBtn'),
   determineDisplayOutput() {
-    const calculatorDisplay = document.querySelector('#calculatorDisplay');
-    calculatorDisplay.textContent = calculator.operandA;
+    this.calculatorDisplay.textContent = calculator.operandA;
     if (calculator.operator) {
-      calculatorDisplay.textContent += ' ' + calculator.operator;
+      this.calculatorDisplay.textContent += ' ' + calculator.operator;
       if (calculator.operandB) {
-        calculatorDisplay.textContent += ' ' + calculator.operandB;
+        this.calculatorDisplay.textContent += ' ' + calculator.operandB;
       }
     }
   },
@@ -62,10 +62,16 @@ const calculator = {
   },
   handleEqualsClick() {
     if (this.operator && this.operandB) {
-      this.operandA = this.operate().toString();
-      this.operandB = '';
-      this.operator = null;
-      dom.determineDisplayOutput();
+      const result = this.operate();
+      if (Number.isNaN(result)) {
+        this.handleAllClearClick();
+        dom.calculatorDisplay.textContent = 'Error';
+      } else {
+        this.operandA = result.toString();
+        this.operandB = '';
+        this.operator = null;
+        dom.determineDisplayOutput();
+      }
     }
   },
   handleAllClearClick() {
