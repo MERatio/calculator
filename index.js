@@ -18,7 +18,7 @@ const dom = {
 };
 
 const calculator = {
-  operandA: '0',
+  operandA: '',
   operandB: '',
   operator: null,
   operate() {
@@ -49,16 +49,34 @@ const calculator = {
   handleOperatorClick(e) {
     const operator = e.currentTarget.dataset.operator;
     if (this.operator === null) {
-      this.operator = operator;
-    } else {
-      if (this.operandB) {
-        this.handleEqualsClick();
+      if (this.operandA === '') {
+        if (operator === '-') {
+          this.operandA = '-';
+        } else {
+          this.operandA = '0';
+          this.operator = operator;
+        }
+      } else if (this.operandA === '-') {
+        return;
+      } else {
+        this.operator = operator;
       }
-      this.operator = operator;
+    } else {
+      if (this.operandB === '' && operator === '-') {
+        this.operandB = '-';
+      } else if (this.operandB === '-') {
+        return;
+      } else {
+        this.handleEqualsClick();
+        this.operator = operator;
+      }
     }
     dom.determineDisplayOutput();
   },
   handleEqualsClick() {
+    if (this.operandB === '-') {
+      return;
+    }
     if (this.operator && this.operandB) {
       const result = this.operate();
       if (Number.isNaN(result)) {
@@ -73,10 +91,10 @@ const calculator = {
     }
   },
   handleAllClearClick() {
-    this.operandA = '0';
+    dom.calculatorDisplay.textContent = '0';
+    this.operandA = '';
     this.operandB = '';
     this.operator = null;
-    dom.determineDisplayOutput();
   },
 };
 
@@ -99,5 +117,4 @@ function addEventListeners() {
   );
 }
 
-dom.determineDisplayOutput();
 addEventListeners();
