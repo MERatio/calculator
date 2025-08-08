@@ -43,7 +43,11 @@ const calculator = {
         this.operandA += numberStr;
       }
     } else {
-      this.operandB += numberStr;
+      if (this.operandB === '0') {
+        this.operandB = numberStr;
+      } else {
+        this.operandB += numberStr;
+      }
     }
     dom.determineDisplayOutput();
   },
