@@ -51,12 +51,10 @@ const calculator = {
     if (this.operator === null) {
       this.operator = operator;
     } else {
-      if (this.operandB === '') {
-        return;
-      } else {
+      if (this.operandB) {
         this.handleEqualsClick();
-        this.operator = operator;
       }
+      this.operator = operator;
     }
     dom.determineDisplayOutput();
   },
