@@ -11,28 +11,40 @@
     <div class="container">
       <div class="calculator">
         <div class="calculator-edge">
-          <div class="calculator-display">12 + 10</div>
+          <div class="calculator-display" id="calculatorDisplay"></div>
           <div class="calculator-btns-container">
             <button type="button" class="btn dark-blue-bg all-clear-btn">
               AC
             </button>
             <button type="button" class="btn dark-bg">&#9003;</button>
-            <button type="button" class="btn gray-bg">&divide;</button>
-            <button type="button" class="btn dark-bg">7</button>
-            <button type="button" class="btn dark-bg">8</button>
-            <button type="button" class="btn dark-bg">9</button>
-            <button type="button" class="btn gray-bg">&times;</button>
-            <button type="button" class="btn dark-bg">4</button>
-            <button type="button" class="btn dark-bg">5</button>
-            <button type="button" class="btn dark-bg">6</button>
-            <button type="button" class="btn gray-bg">&minus;</button>
-            <button type="button" class="btn dark-bg">1</button>
-            <button type="button" class="btn dark-bg">2</button>
-            <button type="button" class="btn dark-bg">3</button>
-            <button type="button" class="btn gray-bg">&plus;</button>
-            <button type="button" class="btn dark-bg">0</button>
+            <button type="button" class="btn gray-bg" data-operator="/">
+              &divide;
+            </button>
+            <button type="button" class="btn dark-bg" data-number="7">7</button>
+            <button type="button" class="btn dark-bg" data-number="8">8</button>
+            <button type="button" class="btn dark-bg" data-number="9">9</button>
+            <button type="button" class="btn gray-bg" data-operator="*">
+              &times;
+            </button>
+            <button type="button" class="btn dark-bg" data-number="4">4</button>
+            <button type="button" class="btn dark-bg" data-number="5">5</button>
+            <button type="button" class="btn dark-bg" data-number="6">6</button>
+            <button type="button" class="btn gray-bg" data-operator="-">
+              &minus;
+            </button>
+            <button type="button" class="btn dark-bg" data-number="1">1</button>
+            <button type="button" class="btn dark-bg" data-number="2">2</button>
+            <button type="button" class="btn dark-bg" data-number="3">3</button>
+            <button type="button" class="btn gray-bg" data-operator="+">
+              &plus;
+            </button>
+            <button type="button" class="btn dark-bg" data-number="0">0</button>
             <button type="button" class="btn dark-bg">&middot;</button>
-            <button type="button" class="btn green-bg equals-btn">
+            <button
+              type="button"
+              class="btn green-bg equals-btn"
+              id="equalsBtn"
+            >
               &equals;
             </button>
           </div>
