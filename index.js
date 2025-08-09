@@ -74,7 +74,11 @@ const calculator = {
         return;
       } else {
         this.handleEqualsClick();
-        this.operator = operator;
+        if (dom.calculatorDisplay.textContent === 'Error') {
+          return;
+        } else {
+          this.operator = operator;
+        }
       }
     }
     this.resultIsDisplayed = false;
