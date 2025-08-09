@@ -7,6 +7,7 @@ const dom = {
   equalsBtn: document.querySelector('#equalsBtn'),
   allClearBtn: document.querySelector('#allClearBtn'),
   decimalPointBtn: document.querySelector('#decimalPointBtn'),
+  backspaceBtn: document.querySelector('#backspaceBtn'),
   determineDisplayOutput() {
     this.calculatorDisplay.textContent = calculator.operandA;
     if (calculator.operator) {
@@ -126,6 +127,24 @@ const calculator = {
     }
     dom.determineDisplayOutput();
   },
+  handleBackspaceBtnClick() {
+    if (this.operandA === '' || calculator.resultIsDisplayed) {
+      this.handleAllClearClick();
+      return;
+    }
+
+    if (this.operandB !== '') {
+      this.operandB = this.operandB.slice(0, -1);
+    } else if (this.operator) {
+      this.operator = null;
+    } else if (this.operandA.length === 1) {
+      this.handleAllClearClick();
+      return;
+    } else if (this.operandA !== '') {
+      this.operandA = this.operandA.slice(0, -1);
+    }
+    dom.determineDisplayOutput();
+  },
 };
 
 function addEventListeners() {
@@ -147,6 +166,9 @@ function addEventListeners() {
   );
   dom.decimalPointBtn.addEventListener('click', () =>
     calculator.handleDecimalPointClick()
+  );
+  dom.backspaceBtn.addEventListener('click', () =>
+    calculator.handleBackspaceBtnClick()
   );
 }
 
