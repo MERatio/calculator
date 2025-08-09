@@ -21,6 +21,7 @@ const calculator = {
   operandA: '',
   operandB: '',
   operator: null,
+  resultIsDisplayed: false,
   operate() {
     const a = parseFloat(this.operandA);
     const b = parseFloat(this.operandB);
@@ -36,6 +37,9 @@ const calculator = {
     }
   },
   handleNumbersBtnClick(e) {
+    if (this.resultIsDisplayed) {
+      this.handleAllClearClick();
+    }
     const numberStr = e.currentTarget.dataset.number;
     const targetOperand = this.operator === null ? 'operandA' : 'operandB';
     if (this[targetOperand] === '0') {
@@ -71,6 +75,7 @@ const calculator = {
         this.operator = operator;
       }
     }
+    this.resultIsDisplayed = false;
     dom.determineDisplayOutput();
   },
   handleEqualsClick() {
@@ -93,6 +98,7 @@ const calculator = {
         this.operandB = '';
         this.operator = null;
         dom.determineDisplayOutput();
+        this.resultIsDisplayed = true;
       }
     }
   },
@@ -101,6 +107,7 @@ const calculator = {
     this.operandA = '';
     this.operandB = '';
     this.operator = null;
+    this.resultIsDisplayed = false;
   },
 };
 
