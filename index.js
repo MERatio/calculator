@@ -77,13 +77,19 @@ const calculator = {
     if (this.operandB === '-') {
       return;
     }
+
+    function roundNumber(value, decimals) {
+      const factor = Math.pow(10, decimals);
+      return Math.round(value * factor) / factor;
+    }
+
     if (this.operator && this.operandB) {
       const result = this.operate();
       if (Number.isNaN(result)) {
         this.handleAllClearClick();
         dom.calculatorDisplay.textContent = 'Error';
       } else {
-        this.operandA = result.toString();
+        this.operandA = roundNumber(result, 11).toString();
         this.operandB = '';
         this.operator = null;
         dom.determineDisplayOutput();
