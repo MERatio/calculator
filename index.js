@@ -168,6 +168,21 @@ function addEventListeners() {
     calculator.inputDecimalPoint()
   );
   dom.backspaceBtn.addEventListener('click', () => calculator.inputBackspace());
+
+  window.addEventListener('keydown', (e) => {
+    const key = e.key;
+    if (/\d/.test(key)) {
+      calculator.inputNumber(key);
+    } else if (['+', '-', '*', '/'].includes(key)) {
+      calculator.inputOperator(key);
+    } else if (key === 'Enter' || key === '=') {
+      calculator.inputEquals();
+    } else if (key === '.') {
+      calculator.inputDecimalPoint();
+    } else if (key === 'Backspace') {
+      calculator.inputBackspace();
+    }
+  });
 }
 
 addEventListeners();
