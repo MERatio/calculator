@@ -9,9 +9,21 @@ const dom = {
   decimalPointBtn: document.querySelector('#decimalPointBtn'),
   backspaceBtn: document.querySelector('#backspaceBtn'),
   determineDisplayOutput() {
+    function formatOperator(operator) {
+      switch (operator) {
+        case '+':
+        case '-':
+          return operator;
+        case '*':
+          return '×';
+        case '/':
+          return '÷';
+      }
+    }
     this.calculatorDisplay.textContent = calculator.operandA;
     if (calculator.operator) {
-      this.calculatorDisplay.textContent += ' ' + calculator.operator;
+      this.calculatorDisplay.textContent +=
+        ' ' + formatOperator(calculator.operator);
       if (calculator.operandB) {
         this.calculatorDisplay.textContent += ' ' + calculator.operandB;
       }
