@@ -2,6 +2,7 @@
 
 const dom = {
   calculatorDisplay: document.querySelector('#calculatorDisplay'),
+  calculatorResult: document.querySelector('#calculatorResult'),
   numbersBtn: document.querySelectorAll('[data-number]'),
   operatorsBtn: document.querySelectorAll('[data-operator]'),
   equalsBtn: document.querySelector('#equalsBtn'),
@@ -20,14 +21,16 @@ const dom = {
           return '÷';
       }
     }
-    this.calculatorDisplay.textContent = calculator.operandA;
+    this.calculatorResult.textContent = calculator.operandA;
     if (calculator.operator) {
-      this.calculatorDisplay.textContent +=
+      this.calculatorResult.textContent +=
         ' ' + formatOperator(calculator.operator);
       if (calculator.operandB) {
-        this.calculatorDisplay.textContent += ' ' + calculator.operandB;
+        this.calculatorResult.textContent += ' ' + calculator.operandB;
       }
     }
+    // Scroll calculatorDisplay all the way to the right to view recent input.
+    calculatorDisplay.scrollLeft = calculatorDisplay.scrollWidth;
   },
 };
 
@@ -84,7 +87,7 @@ const calculator = {
         return;
       } else {
         this.inputEquals();
-        if (dom.calculatorDisplay.textContent === 'Error') {
+        if (dom.calculatorResult.textContent === 'Error') {
           return;
         } else {
           this.operator = operator;
@@ -108,7 +111,7 @@ const calculator = {
       const result = this.operate();
       if (Number.isNaN(result)) {
         this.inputAllClear();
-        dom.calculatorDisplay.textContent = 'Error';
+        dom.calculatorResult.textContent = 'Error';
       } else {
         this.operandA = roundNumber(result, 11).toString();
         this.operandB = '';
@@ -119,7 +122,7 @@ const calculator = {
     }
   },
   inputAllClear() {
-    dom.calculatorDisplay.textContent = '0';
+    dom.calculatorResult.textContent = '0';
     this.operandA = '';
     this.operandB = '';
     this.operator = null;

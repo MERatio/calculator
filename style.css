@@ -53,8 +53,15 @@ body {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   display: flex;
-  justify-content: end;
   align-items: center;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+.calculator-text {
+  /* justify-content: end in parent doesn't work */
+  margin-left: auto;
 }
 
 .calculator-btns-container {
