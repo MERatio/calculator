@@ -38,11 +38,10 @@ const calculator = {
         return a / b;
     }
   },
-  handleNumbersBtnClick(e) {
+  inputNumber(numberStr) {
     if (this.resultIsDisplayed) {
-      this.handleAllClearClick();
+      this.inputAllClear();
     }
-    const numberStr = e.currentTarget.dataset.number;
     const targetOperand = this.operator === null ? 'operandA' : 'operandB';
     if (this[targetOperand] === '0') {
       this[targetOperand] = numberStr;
@@ -52,8 +51,7 @@ const calculator = {
 
     dom.determineDisplayOutput();
   },
-  handleOperatorClick(e) {
-    const operator = e.currentTarget.dataset.operator;
+  inputOperator(operator) {
     if (this.operator === null) {
       if (this.operandA === '') {
         if (operator === '-') {
@@ -73,7 +71,7 @@ const calculator = {
       } else if (this.operandB === '-') {
         return;
       } else {
-        this.handleEqualsClick();
+        this.inputEquals();
         if (dom.calculatorDisplay.textContent === 'Error') {
           return;
         } else {
@@ -84,7 +82,7 @@ const calculator = {
     this.resultIsDisplayed = false;
     dom.determineDisplayOutput();
   },
-  handleEqualsClick() {
+  inputEquals() {
     if (this.operandB === '-') {
       return;
     }
@@ -97,7 +95,7 @@ const calculator = {
     if (this.operator && this.operandB) {
       const result = this.operate();
       if (Number.isNaN(result)) {
-        this.handleAllClearClick();
+        this.inputAllClear();
         dom.calculatorDisplay.textContent = 'Error';
       } else {
         this.operandA = roundNumber(result, 11).toString();
@@ -108,21 +106,21 @@ const calculator = {
       }
     }
   },
-  handleAllClearClick() {
+  inputAllClear() {
     dom.calculatorDisplay.textContent = '0';
     this.operandA = '';
     this.operandB = '';
     this.operator = null;
     this.resultIsDisplayed = false;
   },
-  handleDecimalPointClick() {
+  inputDecimalPoint() {
     const targetOperand = this.operator === null ? 'operandA' : 'operandB';
     if (this[targetOperand].includes('.')) {
       return;
     }
 
     if (this.resultIsDisplayed) {
-      this.handleAllClearClick();
+      this.inputAllClear();
     }
     if (this[targetOperand] === '') {
       this[targetOperand] = '.';
@@ -131,9 +129,9 @@ const calculator = {
     }
     dom.determineDisplayOutput();
   },
-  handleBackspaceBtnClick() {
+  inputBackspace() {
     if (this.operandA === '' || calculator.resultIsDisplayed) {
-      this.handleAllClearClick();
+      this.inputAllClear();
       return;
     }
 
@@ -142,7 +140,7 @@ const calculator = {
     } else if (this.operator) {
       this.operator = null;
     } else if (this.operandA.length === 1) {
-      this.handleAllClearClick();
+      this.inputAllClear();
       return;
     } else if (this.operandA !== '') {
       this.operandA = this.operandA.slice(0, -1);
@@ -154,26 +152,22 @@ const calculator = {
 function addEventListeners() {
   for (const numberBtn of dom.numbersBtn) {
     numberBtn.addEventListener('click', (e) =>
-      calculator.handleNumbersBtnClick(e)
+      calculator.inputNumber(e.currentTarget.dataset.number)
     );
   }
 
   for (const operatorBtn of dom.operatorsBtn) {
     operatorBtn.addEventListener('click', (e) =>
-      calculator.handleOperatorClick(e)
+      calculator.inputOperator(e.currentTarget.dataset.operator)
     );
   }
 
-  dom.equalsBtn.addEventListener('click', () => calculator.handleEqualsClick());
-  dom.allClearBtn.addEventListener('click', () =>
-    calculator.handleAllClearClick()
-  );
+  dom.equalsBtn.addEventListener('click', () => calculator.inputEquals());
+  dom.allClearBtn.addEventListener('click', () => calculator.inputAllClear());
   dom.decimalPointBtn.addEventListener('click', () =>
-    calculator.handleDecimalPointClick()
+    calculator.inputDecimalPoint()
   );
-  dom.backspaceBtn.addEventListener('click', () =>
-    calculator.handleBackspaceBtnClick()
-  );
+  dom.backspaceBtn.addEventListener('click', () => calculator.inputBackspace());
 }
 
 addEventListeners();
